@@ -1,4 +1,4 @@
-import BrowserRouter, {Route, Routes} from "react-router-dom"
+import {Route, Routes, BrowserRouter} from "react-router-dom"
 import {Layout, Home, Register, Login} from "./components"
 
 function App() {
