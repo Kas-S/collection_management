@@ -5,10 +5,10 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" component={<Layout/>} >
-          <Route index component={<Home/>}/>
-          <Route path="/login" component={<Login/>}/>
-          <Route path="/register" component={<Register/>}/>
+        <Route path="/" element={<Layout/>} >
+          <Route index element={<Home/>}/>
+          <Route path="/login" element={<Login/>}/>
+          <Route path="/register" element={<Register/>}/>
         </Route>
       </Routes>
     </BrowserRouter>
