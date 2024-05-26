@@ -1,6 +1,6 @@
 function Navbar() {
     return (
-        <nav>
+        <nav className="flex justify-between max-container">
 
         </nav>
     )
