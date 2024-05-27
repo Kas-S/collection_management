@@ -19,7 +19,7 @@ function Navbar() {
                         <Link to="/login" className="p-4 bg-white font-mono text-black rounded-2xl font-bold text-nowrap">Log In</Link>
                     </li>
                     <li>
-                        <Link to="/register" className="p-4 bg-emerald-600 font-mono text-white rounded-2xl font-bold">Register</Link>
+                        <Link to="/register" className="p-4 bg-emerald-600 font-mono text-white rounded-2xl font-bold text-nowrap">Register</Link>
                     </li>
                 </ul>
             </div>
