@@ -1,12 +1,8 @@
 import {
-    FormControl,
-    Input,
-    FormHelperText,
-    FormLabel,
-    Container,
-    Button,
+    FormControl, Input, FormHelperText,
+    FormLabel, Container, Button,
     Heading
-} from "@chakra-ui/react";
+} from "@chakra-ui/react"
 import { useState } from "react"
 import { createUserWithEmailAndPassword } from "firebase/auth"
 import { auth } from "../../config/firebase.js"
