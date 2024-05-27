@@ -13,13 +13,19 @@ import { auth } from "../../config/firebase.js"
 
 function Register() {
     const [email, setEmail] = useState(""),
-          [password, setPassword] = useState("")
+          [password, setPassword] = useState(""),
+          [status, setStatus] = useState("")
 
     const register = async () => {
         try {
             await createUserWithEmailAndPassword(auth, email, password)
         } catch (err) {
-            console.error(err)
+            if (err.message === "Firebase: Error (auth/email-already-in-use).") {
+                setStatus("User with this email already exists")
+            } else {
+                setStatus("Unknown error")
+                console.error(err)
+            }
         }
     }
 
@@ -45,6 +51,7 @@ function Register() {
                         Create your password
                     </FormHelperText>
                 </FormControl>
+                <p className="text-red-600">{status}</p>
                 <Button onClick={register}>Register</Button>
             </form>
         </Container>
