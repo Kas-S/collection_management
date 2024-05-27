@@ -7,7 +7,7 @@ function Navbar() {
         <nav className="bg-emerald-900">
             <Container maxW="full">
             <div className="flex justify-between py-3.5 items-center mx-auto px-5">
-                <Link to="/" className="text-4xl font-bold text-white font-mono">
+                <Link to="/" className="md:text-4xl font-bold text-white font-mono">
                     Collection
                 </Link>
 
