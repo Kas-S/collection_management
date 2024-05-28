@@ -4,19 +4,29 @@ import {
     Input
 } from "@chakra-ui/react"
 import {useState} from "react"
+import { useNavigate } from "react-router-dom"
 import {auth} from "../../config/firebase.js"
 import { signInWithEmailAndPassword } from "firebase/auth"
 
 function Login () {
     const [email, setEmail] = useState(""),
           [password, setPassword] = useState(""),
-          [status, setStatus] = useState("")
+          [status, setStatus] = useState(""),
+          navigate = useNavigate()
 
     const login = async () => {
         try {
             await signInWithEmailAndPassword(auth, email, password)
+            navigate('/')
         } catch (err) {
-            console.error(err)
+            if (err.message === "Firebase: Error (auth/invalid-email).") {
+                setStatus("Email is invalid.")
+            } else if (err.message === "Firebase: Error (auth/invalid-credential).") {
+                setStatus("Login or password are incorrect")
+            } else {
+                setStatus("Unknown error")
+                console.error(err)
+            }
         }
     }
 
@@ -43,7 +53,7 @@ function Login () {
                     </FormHelperText>
                 </FormControl>
                 <p className="text-red-600">{status}</p>
-                <Button onClick={login}>Register</Button>
+                <Button onClick={login}>Log In</Button>
             </form>
         </Container>
     )

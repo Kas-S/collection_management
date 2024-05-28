@@ -4,17 +4,21 @@ import {
     Heading
 } from "@chakra-ui/react"
 import { useState } from "react"
+import { useNavigate } from "react-router-dom"
 import { createUserWithEmailAndPassword } from "firebase/auth"
 import { auth } from "../../config/firebase.js"
+
 
 function Register() {
     const [email, setEmail] = useState(""),
           [password, setPassword] = useState(""),
-          [status, setStatus] = useState("")
+          [status, setStatus] = useState(""),
+          navigate = useNavigate()
 
     const register = async () => {
         try {
             await createUserWithEmailAndPassword(auth, email, password)
+            navigate('/')
         } catch (err) {
             if (err.message === "Firebase: Error (auth/email-already-in-use).") {
                 setStatus("User with this email already exists")
