@@ -1,19 +1,21 @@
 import {Link} from "react-router-dom"
-import {Container} from "@chakra-ui/react";
+import {useEffect, useState} from "react"
+import {Container} from "@chakra-ui/react"
 import SearchBar from "./NavbarComponents/SearchBar.jsx"
 import Menu from "./NavbarComponents/Menu.jsx"
 import {auth} from "../../config/firebase.js"
-//import {signOut} from "firebase/auth"
+import {onAuthStateChanged} from "firebase/auth"
 
 function Navbar() {
+    const [user, setUser] = useState(null)
 
-    // const logout = async () => {
-    //     try {
-    //         await signOut(auth)
-    //     } catch (err) {
-    //         console.error(err)
-    //     }
-    // }
+    useEffect(() => {
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                setUser(user)
+            } else setUser(null)
+        })
+    }, [])
 
     console.log(auth.currentUser)
 
@@ -29,7 +31,7 @@ function Navbar() {
                     <li>
                         <SearchBar/>
                     </li>
-                    {!auth.currentUser && (
+                    {!user && (
                         <>
                             <li>
                                 <Link to="/login" className="p-4 bg-white font-mono text-black rounded-2xl font-bold text-nowrap">Log In</Link>
@@ -39,7 +41,7 @@ function Navbar() {
                             </li>
                         </>
                     ) }
-                    {auth.currentUser && (
+                    {user && (
                         <li>
                             <Menu/>
                         </li>
