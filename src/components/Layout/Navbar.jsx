@@ -1,18 +1,21 @@
 import {Link} from "react-router-dom"
-import {Container, Button} from "@chakra-ui/react";
+import {Container} from "@chakra-ui/react";
 import SearchBar from "./NavbarComponents/SearchBar.jsx"
+import Menu from "./NavbarComponents/Menu.jsx"
 import {auth} from "../../config/firebase.js"
-import {signOut} from "firebase/auth"
+//import {signOut} from "firebase/auth"
 
 function Navbar() {
 
-    const logout = async () => {
-        try {
-            await signOut(auth)
-        } catch (err) {
-            console.error(err)
-        }
-    }
+    // const logout = async () => {
+    //     try {
+    //         await signOut(auth)
+    //     } catch (err) {
+    //         console.error(err)
+    //     }
+    // }
+
+    console.log(auth.currentUser)
 
     return (
         <nav className="bg-emerald-900">
@@ -38,7 +41,7 @@ function Navbar() {
                     ) }
                     {auth.currentUser && (
                         <li>
-                            <Button onClick={logout}>Log Out</Button>
+                            <Menu/>
                         </li>
                     )}
                 </ul>
