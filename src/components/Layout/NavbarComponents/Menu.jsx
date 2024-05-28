@@ -1,14 +1,24 @@
 import {
     Button, Drawer, DrawerOverlay, DrawerFooter, useDisclosure,
-    DrawerCloseButton, DrawerHeader, DrawerContent
+    DrawerCloseButton, DrawerHeader, DrawerContent, DrawerBody,
+    Divider
 } from "@chakra-ui/react"
 import {useRef} from "react"
-
-
+import {auth} from "../../../config/firebase.js"
+import {signOut} from "firebase/auth"
 
 function Menu() {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const btnRef = useRef(null)
+
+    const logout = async () => {
+        try {
+            await signOut(auth)
+        } catch (err) {
+            console.error(err)
+        }
+    }
+
     return (
         <>
             <Button ref={btnRef} colorScheme='teal' onClick={onOpen}>
@@ -25,6 +35,10 @@ function Menu() {
                     <DrawerCloseButton />
                     <DrawerHeader>Create your account</DrawerHeader>
 
+                    <DrawerBody>
+                        <Divider/>
+                        <Button onClick={logout}>Log Out</Button>
+                    </DrawerBody>
 
 
                     <DrawerFooter>
