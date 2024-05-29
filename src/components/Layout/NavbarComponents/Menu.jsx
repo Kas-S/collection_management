@@ -4,6 +4,7 @@ import {
     Divider
 } from "@chakra-ui/react"
 import {useRef} from "react"
+import {Link} from "react-router-dom"
 import {auth} from "../../../config/firebase.js"
 import {signOut} from "firebase/auth"
 
@@ -33,19 +34,19 @@ function Menu() {
                 <DrawerOverlay />
                 <DrawerContent>
                     <DrawerCloseButton />
-                    <DrawerHeader>Create your account</DrawerHeader>
+                    <DrawerHeader>{auth?.currentUser.email}</DrawerHeader>
 
-                    <DrawerBody>
-                        <Divider/>
+                    <DrawerBody display="flex" flexDirection="column" alignItems="center">
+                        <br/>
+                        <Link to="/profile" className="my-3">Profile</Link>
+                        <Link to="/publish" className="my-3">Publish Item</Link>
+                        <Divider my={3}/>
                         <Button onClick={logout}>Log Out</Button>
                     </DrawerBody>
 
 
                     <DrawerFooter>
-                        <Button variant='outline' mr={3} onClick={onClose}>
-                            Cancel
-                        </Button>
-                        <Button colorScheme='blue'>Save</Button>
+
                     </DrawerFooter>
                 </DrawerContent>
             </Drawer>
