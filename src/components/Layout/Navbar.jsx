@@ -3,7 +3,7 @@ import {useContext} from "react"
 import {Container} from "@chakra-ui/react"
 import SearchBar from "./NavbarComponents/SearchBar.jsx"
 import Menu from "./NavbarComponents/Menu.jsx"
-import {userContext} from "../../App.jsx";
+import {userContext} from "../../userContext.js";
 
 
 function Navbar() {

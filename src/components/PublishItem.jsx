@@ -9,7 +9,7 @@ import {
 } from '@chakra-ui/react'
 import {useNavigate} from "react-router-dom"
 import {useEffect, useContext} from "react"
-import {userContext} from "../App.jsx";
+import {userContext} from "../userContext.js";
 
 
 function PublishItem() {
