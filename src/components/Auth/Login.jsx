@@ -53,7 +53,7 @@ function Login () {
                     </FormHelperText>
                 </FormControl>
                 <p className="text-red-600">{status}</p>
-                <Button onClick={login}>Log In</Button>
+                <Button onClick={login} type="submit">Log In</Button>
             </form>
         </Container>
     )

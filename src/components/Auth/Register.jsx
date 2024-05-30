@@ -52,7 +52,7 @@ function Register() {
                     </FormHelperText>
                 </FormControl>
                 <p className="text-red-600">{status}</p>
-                <Button onClick={register}>Register</Button>
+                <Button onClick={register} type="submit">Register</Button>
             </form>
         </Container>
 

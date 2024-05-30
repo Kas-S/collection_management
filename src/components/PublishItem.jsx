@@ -47,7 +47,7 @@ function PublishItem() {
                             <FormHelperText color="slategray">Upload image of your item</FormHelperText>
                         </FormControl>
                         <FormErrorMessage></FormErrorMessage>
-                        <Button>Publish</Button>
+                        <Button type="submit">Publish</Button>
                     </form>
                 </Container>
             )}
