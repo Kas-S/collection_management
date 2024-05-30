@@ -14,7 +14,8 @@ function Login () {
           [status, setStatus] = useState(""),
           navigate = useNavigate()
 
-    const login = async () => {
+    const login = async (e) => {
+        e.preventDefault()
         try {
             await signInWithEmailAndPassword(auth, email, password)
             navigate('/')
@@ -32,7 +33,7 @@ function Login () {
 
     return (
         <Container>
-            <form className="bg-white mt-3 p-4 rounded-md flex flex-col items-center">
+            <form className="bg-white mt-3 p-4 rounded-md flex flex-col items-center" onSubmit={login}>
                 <Heading mb="4">Log In</Heading>
                 <FormControl>
                     <FormLabel fontFamily="sans-serif" fontSize="xl" fontWeight="bold">
@@ -53,7 +54,7 @@ function Login () {
                     </FormHelperText>
                 </FormControl>
                 <p className="text-red-600">{status}</p>
-                <Button onClick={login} type="submit">Log In</Button>
+                <Button type="submit">Log In</Button>
             </form>
         </Container>
     )

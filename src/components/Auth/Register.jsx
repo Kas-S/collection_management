@@ -15,7 +15,8 @@ function Register() {
           [status, setStatus] = useState(""),
           navigate = useNavigate()
 
-    const register = async () => {
+    const register = async (e) => {
+        e.preventDefault()
         try {
             await createUserWithEmailAndPassword(auth, email, password)
             navigate('/')
@@ -31,7 +32,7 @@ function Register() {
 
     return (
         <Container>
-            <form className="bg-white mt-3 p-4 rounded-md flex flex-col items-center">
+            <form className="bg-white mt-3 p-4 rounded-md flex flex-col items-center" onSubmit={register}>
                 <Heading mb="4">Register for Collection</Heading>
                 <FormControl>
                     <FormLabel fontFamily="sans-serif" fontSize="xl" fontWeight="bold">
@@ -52,7 +53,7 @@ function Register() {
                     </FormHelperText>
                 </FormControl>
                 <p className="text-red-600">{status}</p>
-                <Button onClick={register} type="submit">Register</Button>
+                <Button type="submit">Register</Button>
             </form>
         </Container>
 
