@@ -1,23 +1,13 @@
 import {Link} from "react-router-dom"
-import {useEffect, useState} from "react"
+import {useContext} from "react"
 import {Container} from "@chakra-ui/react"
 import SearchBar from "./NavbarComponents/SearchBar.jsx"
 import Menu from "./NavbarComponents/Menu.jsx"
-import {auth} from "../../config/firebase.js"
-import {onAuthStateChanged} from "firebase/auth"
+import {userContext} from "../../App.jsx";
+
 
 function Navbar() {
-    const [user, setUser] = useState(null)
-
-    useEffect(() => {
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                setUser(user)
-            } else setUser(null)
-        })
-    }, [])
-
-    console.log(auth.currentUser)
+    const user = useContext(userContext)
 
     return (
         <nav className="bg-emerald-900">
