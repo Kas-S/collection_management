@@ -7,24 +7,19 @@ import {
     Textarea,
     Button, Container, Heading
 } from '@chakra-ui/react'
-import {auth} from '../config/firebase.js'
 import {useNavigate} from "react-router-dom"
-import {useEffect, useState} from "react"
-import {onAuthStateChanged} from "firebase/auth";
+import {useEffect, useContext} from "react"
+import {userContext} from "../App.jsx";
+
 
 function PublishItem() {
     const navigate = useNavigate()
-    const [user, setUser] = useState(null)
+    const user = useContext(userContext)
     useEffect(() => {
-        onAuthStateChanged(auth, (u) => {
-            if (!u) {
-                setUser(null)
-                navigate('/login')
-            } else {
-                setUser(u)
-            }
-        })
-    }, [])
+        if (!user) {
+            navigate("/login")
+        }
+    }, [user])
     return (
         <>
             {user && (
