@@ -3,11 +3,11 @@ import {useContext} from "react"
 import {Container} from "@chakra-ui/react"
 import SearchBar from "./NavbarComponents/SearchBar.jsx"
 import Menu from "./NavbarComponents/Menu.jsx"
-import {userContext} from "../../userContext.js";
+import {UserContext} from "../../userContext.js";
 
 
 function Navbar() {
-    const user = useContext(userContext)
+    const user = useContext(UserContext)
 
     return (
         <nav className="bg-emerald-900">

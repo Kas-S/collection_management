@@ -9,12 +9,12 @@ import {
 } from '@chakra-ui/react'
 import {useNavigate} from "react-router-dom"
 import {useEffect, useContext} from "react"
-import {userContext} from "../userContext.js";
+import {UserContext} from "../userContext.js";
 
 
 function PublishItem() {
     const navigate = useNavigate()
-    const user = useContext(userContext)
+    const user = useContext(UserContext)
     useEffect(() => {
         if (!user) {
             navigate("/login")

@@ -3,7 +3,7 @@ import {Route, Routes, BrowserRouter} from "react-router-dom"
 import {Layout, Home, Register, Login, PublishItem, Profile} from "./components"
 import {auth} from "./config/firebase.js"
 import {onAuthStateChanged} from "firebase/auth"
-import {userContext} from "./userContext.js"
+import {UserContext} from "./userContext.js"
 
 
 function App() {
@@ -16,7 +16,7 @@ function App() {
     })
   }, [])
   return (
-    <userContext.Provider value={user}>
+    <UserContext.Provider value={user}>
       <BrowserRouter>
         <Routes>
          <Route path="/" element={<Layout/>} >
@@ -28,7 +28,7 @@ function App() {
           </Route>
         </Routes>
       </BrowserRouter>
-    </userContext.Provider>
+    </UserContext.Provider>
   )
 }
 
