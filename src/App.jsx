@@ -1,5 +1,5 @@
 import {Route, Routes, BrowserRouter} from "react-router-dom"
-import {Layout, Home, Register, Login} from "./components"
+import {Layout, Home, Register, Login, PublishItem, Profile} from "./components"
 
 function App() {
   return (
@@ -9,6 +9,8 @@ function App() {
           <Route index element={<Home/>}/>
           <Route path="/login" element={<Login/>}/>
           <Route path="/register" element={<Register/>}/>
+          <Route path="/publish" element={<PublishItem/>}/>
+          <Route path="/profile" element={<Profile/>}/>
         </Route>
       </Routes>
     </BrowserRouter>
