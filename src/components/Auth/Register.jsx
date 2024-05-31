@@ -7,7 +7,7 @@ import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { createUserWithEmailAndPassword } from "firebase/auth"
 import { auth, fs, st} from "../../config/firebase.js"
-import { addDoc, collection } from "firebase/firestore"
+import {doc, setDoc } from "firebase/firestore"
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage"
 
 
@@ -36,8 +36,8 @@ function Register() {
                     },
                     () => {
                         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-                            const dbRef = collection(fs, 'users')
-                            addDoc(dbRef, {
+                            const dbRef = doc(fs, 'users', auth.currentUser.uid)
+                            setDoc(dbRef, {
                                 fullName: fullName,
                                 avatar: downloadURL,
                                 user_id: auth.currentUser.uid
