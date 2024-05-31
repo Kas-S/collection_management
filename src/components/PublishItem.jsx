@@ -32,8 +32,8 @@ function PublishItem() {
         const uploadTask = uploadBytesResumable(storageRef, image)
         uploadTask.on("state_changed",
             (snapshot) => {
-                const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                console.log('Upload is ' + progress + '% done');
+                const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+                console.log('Upload is ' + progress + '% done')
             },
             (err) => {
                 console.error("File upload Failed: ", err)
