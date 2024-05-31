@@ -16,6 +16,11 @@ function Home() {
                 setItems(a)
             })
     }, [])
+
+    useEffect(() => {
+        document.title = "Browse Collection"
+    }, [])
+
     return (
         <>
             {items && items.map((item, i) => (

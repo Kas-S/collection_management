@@ -13,19 +13,19 @@ function ViewItem() {
         .then(res => {
             setItem(res.data())
         })
-    }, []);
+    }, [])
 
     useEffect(() => {
         if (item)
             document.title = `${item.title} - Collection`
-    }, [item]);
+    }, [item])
 
     return (
         <>
             {item && (
                 <Container>
                     <Card>
-                        <CardBody>
+                        <CardBody flex={1} flexDirection="column" alignItems="center" textAlign="center">
                             <Image src={item.image_url} width="lg" height="lg"/>
                             <Heading>{item.title}</Heading>
                             <Text>{item.description}</Text>
