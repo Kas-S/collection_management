@@ -1,7 +1,8 @@
 import {useState, useEffect} from "react"
 import {getDocs, collection} from "firebase/firestore"
 import {fs} from '../config/firebase.js'
-import {Button, Card, CardBody, CardFooter, Container, Divider, Heading, Image, Stack} from "@chakra-ui/react";
+import {Card, CardBody, CardFooter, Container, Divider, Heading, Image, Stack} from "@chakra-ui/react"
+import {Link} from "react-router-dom"
 
 function Home() {
     const [items, setItems] = useState([])
@@ -28,7 +29,7 @@ function Home() {
                         </CardBody>
                         <Divider/>
                         <CardFooter>
-                            <Button>Details</Button>
+                            <Link className="p-2 rounded-md bg-emerald-600 text-white" to={"/items/" + item.id}>Details</Link>
                         </CardFooter>
                     </Card>
                 </Container>
