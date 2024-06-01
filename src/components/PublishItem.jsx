@@ -12,7 +12,7 @@ import {useEffect, useContext, useState} from "react"
 import {UserContext} from "../userContext.js"
 import {fs, st} from "../config/firebase.js"
 import {ref, uploadBytesResumable, getDownloadURL} from "firebase/storage"
-import {collection, addDoc} from "firebase/firestore"
+import {doc, setDoc, collection, addDoc} from "firebase/firestore"
 
 function PublishItem() {
     const navigate = useNavigate()
@@ -40,23 +40,27 @@ function PublishItem() {
             },
             () => {
                 getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-                    console.log('File available at', downloadURL);
-                    const dbRef = collection(fs, 'items')
-                    addDoc(dbRef, {
-                        title: title,
-                        description: description,
-                        image_url: downloadURL,
-                        date: Date.now(),
-                        user_id: user.uid
-                    })
+                    const item_id = Date.now() + Math.random(),
+                          item_data = {
+                              title: title,
+                              description: description,
+                              image_url: downloadURL,
+                              date: new Date().toUTCString(),
+                              user_id: user.uid,
+                              item_id: item_id.toString()
+                          };
+                    addDoc(collection(fs, `users/${user.uid}/items/`), item_data)
+
+                    setDoc(doc(fs, 'items', item_id.toString()), item_data)
                         .then(() => {
                             console.log('Successfully published')
                             navigate('/')
                         })
                         .catch((error) => {
                             console.error('Error storing image in Firestore:', error)
-                        });
-                });
+                        })
+
+                })
             }
         )
     }
