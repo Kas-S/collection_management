@@ -49,8 +49,7 @@ function PublishItem() {
                               user_id: user.uid,
                               item_id: item_id.toString()
                           };
-                    addDoc(collection(fs, `users/${user.uid}/items/`), item_data)
-
+                    setDoc(doc(fs, `users/${user.uid}/items/${item_id.toString()}`), item_data)
                     setDoc(doc(fs, 'items', item_id.toString()), item_data)
                         .then(() => {
                             console.log('Successfully published')
