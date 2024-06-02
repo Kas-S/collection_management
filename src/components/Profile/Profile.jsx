@@ -1,7 +1,7 @@
-import {useEffect, useContext, useState, useRef} from "react"
+import {useEffect, useContext, useState} from "react"
 import Item from "./Item.jsx"
 import {UserContext} from "../../userContext.js"
-import {Container, Wrap, Card, CardBody, Image, Heading, Text, Highlight} from "@chakra-ui/react"
+import {Container, Card, CardBody, Image, Heading, SimpleGrid} from "@chakra-ui/react"
 import { fs } from "../../config/firebase.js"
 import {getDoc, doc, getDocs, collection} from "firebase/firestore"
 
@@ -29,7 +29,7 @@ function Profile() {
     return (
         <>
             {userData && (
-                <Container>
+                <Container textAlign="center" size="max-content">
                     <Card display="block">
                         <CardBody>
                             <Image src={userData.avatar}/>
@@ -38,9 +38,9 @@ function Profile() {
                     </Card>
                     <br/>
                     <Heading>My Items</Heading>
-                    <Wrap>
+                    <SimpleGrid columns={2} spacing={10} minChildWidth={1}>
                         {items.map((item, index) => (<Item key={index + Math.random()} item={item} />))}
-                    </Wrap>
+                    </SimpleGrid>
                 </Container>
             )}
         </>
