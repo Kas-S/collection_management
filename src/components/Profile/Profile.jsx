@@ -3,7 +3,7 @@ import Item from "./Item.jsx"
 import {UserContext} from "../../userContext.js"
 import {Container, Card, CardBody, Image, Heading, SimpleGrid} from "@chakra-ui/react"
 import { fs } from "../../config/firebase.js"
-import {getDoc, doc, getDocs, collection} from "firebase/firestore"
+import {getDoc, doc, getDocs, collection, deleteDoc} from "firebase/firestore"
 
 function Profile() {
     const user = useContext(UserContext),
@@ -11,20 +11,28 @@ function Profile() {
           [items, setItems] = useState(undefined)
     useEffect(() => {
         if (user){
-            let a = []
-            getDocs(collection(fs, `users/${user.uid}/items/`))
-                .then(res => {
-                    res.forEach(doc => {
-                        a.push(doc.data())
-                    })
-                })
-            setItems(a)
+            update_items()
             getDoc(doc(fs, 'users', user.uid))
                 .then(res => setUserData(res.data()))
         }
     }, [user])
 
-    console.log(items)
+    const update_items = () => {
+        let a = []
+        getDocs(collection(fs, `users/${user.uid}/items/`))
+            .then(res => {
+                res.forEach(doc => {
+                    a.push(doc.data())
+                })
+            })
+        setItems(a)
+    }
+
+    const delete_item = async(item_id) => {
+        await deleteDoc(doc(fs, `items/${item_id}`))
+        await deleteDoc(doc(fs, `users/${user.uid}/items/${item_id}`))
+        update_items()
+    }
 
     return (
         <>
@@ -39,7 +47,7 @@ function Profile() {
                     <br/>
                     <Heading>My Items</Heading>
                     <SimpleGrid columns={2} spacing={10} minChildWidth={1}>
-                        {items.map((item, index) => (<Item key={index + Math.random()} item={item} />))}
+                        {items.map((item, index) => (<Item key={index + Math.random()} item={item} delete_item={delete_item}/>))}
                     </SimpleGrid>
                 </Container>
             )}

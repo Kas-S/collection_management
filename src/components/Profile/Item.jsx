@@ -1,8 +1,8 @@
-import {Card, CardBody, Heading, Highlight, Image, Text} from "@chakra-ui/react"
+import {Card, CardBody, Heading, Highlight, Image, Text, Button} from "@chakra-ui/react"
 import {Link} from "react-router-dom"
 
 // eslint-disable-next-line react/prop-types
-function Item({item}) {
+function Item({item, delete_item}) {
     return (
         <Card>
             <CardBody flex={1} flexDirection="column" alignItems="center" justifyContent="center">
@@ -12,6 +12,7 @@ function Item({item}) {
                 <Highlight query="spotlight">{item.date}</Highlight>
                 <br/>
                 <Link to={"/items/" + item.item_id} className="bg-emerald-600 p-3 rounded-md">Details</Link>
+                <Button bg="red" color="white" onClick={() => delete_item(item.item_id)}>Delete</Button>
             </CardBody>
         </Card>
     )
