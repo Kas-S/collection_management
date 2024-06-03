@@ -11,7 +11,8 @@ function Item({item, delete_item}) {
                 <Text>{item.description}</Text>
                 <Highlight query="spotlight">{item.date}</Highlight>
                 <br/>
-                <Link to={"/items/" + item.item_id} className="bg-emerald-600 p-3 rounded-md">Details</Link>
+                <Link to={"/items/" + item.item_id} className="bg-emerald-600 p-3 rounded-md text-white font-bold mr-3">Details</Link>
+                <Link to={"/edit/" + item.item_id} className="bg-amber-500 p-3 rounded-md text-white font-bold mr-3">Edit</Link>
                 <Button bg="red" color="white" onClick={() => delete_item(item.item_id)}>Delete</Button>
             </CardBody>
         </Card>
