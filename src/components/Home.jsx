@@ -57,6 +57,7 @@ function Home() {
                             <Image src={item.data().image_url} width="md" height="md" alt="Item Image" bgColor="green.500"/>
                             <Stack spacing={3} mt={6}>
                                 <Heading>{item.data().title}</Heading>
+                                <p className="text-xl font-bold">{item.data().category}</p>
                             </Stack>
                         </CardBody>
                         <Divider/>
