@@ -1,24 +1,22 @@
 import {
-    FormControl,
-    FormLabel,
-    Input,
-    FormErrorMessage,
-    FormHelperText,
-    Textarea,
-    Button, Container, Heading
+    FormControl, FormLabel, Input,
+    FormErrorMessage, FormHelperText, Textarea,
+    Button, Container, Heading,
+    Select
 } from '@chakra-ui/react'
 import {useNavigate} from "react-router-dom"
 import {useEffect, useContext, useState} from "react"
 import {UserContext} from "../userContext.js"
 import {fs, st} from "../config/firebase.js"
 import {ref, uploadBytesResumable, getDownloadURL} from "firebase/storage"
-import {doc, setDoc, collection, addDoc} from "firebase/firestore"
+import {doc, setDoc} from "firebase/firestore"
 
 function PublishItem() {
     const navigate = useNavigate()
     const user = useContext(UserContext)
     const [title, setTitle] = useState(""),
           [description, setDescription] = useState(""),
+          [category, setCategory] = useState(""),
           [image, setImage] = useState(null)
     useEffect(() => {
         if (!user) {
@@ -44,6 +42,7 @@ function PublishItem() {
                           item_data = {
                               title: title,
                               description: description,
+                              category: category,
                               image_url: downloadURL,
                               date: new Date().toUTCString(),
                               user_id: user.uid,
@@ -79,6 +78,16 @@ function PublishItem() {
                             <FormLabel fontSize={24} textAlign="center">Description: </FormLabel>
                             <Textarea bgColor="white" opacity={0.5} color="black" placeholder="Description" onChange={(e) => setDescription(e.target.value)}></Textarea>
                             <FormHelperText color="slategray">Write proper description</FormHelperText>
+                        </FormControl>
+                        <FormControl mb={4}>
+                            <FormLabel fontSize={24} textAlign="center">Category: </FormLabel>
+                            <Select onChange={(e) => setCategory(e.target.value)}>
+                                <option value="Art">Art</option>
+                                <option value="Tech">Tech</option>
+                                <option value="Household">Household</option>
+                                <option value="Car">Car</option>
+                                <option value="Books">Books</option>
+                            </Select>
                         </FormControl>
                         <FormControl mb={4}>
                             <FormLabel fontSize={24} textAlign="center">Image: </FormLabel>
