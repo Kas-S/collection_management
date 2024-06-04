@@ -14,15 +14,16 @@ function ViewItem() {
         .then(res => {
             setItem(res.data())
         })
-        getDoc(doc(fs, "users", item.user_id))
-            .then(res => {
-                setAuthor(res.data().fullName)
-            })
     }, [])
 
     useEffect(() => {
-        if (item)
-            document.title = `${item.title} - Collection`
+        if (item) {
+            document.title = item.title
+            getDoc(doc(fs, "users", item.user_id))
+                .then(res => {
+                    setAuthor(res.data().fullName)
+                })
+        }
     }, [item])
 
     return (
