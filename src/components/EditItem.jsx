@@ -1,11 +1,20 @@
 import {useState, useEffect} from 'react'
 import {useParams, useNavigate} from "react-router-dom"
-import {Container, FormControl, Input, FormLabel, Textarea, Button, Select} from "@chakra-ui/react"
+import {Container, FormControl, Input, FormLabel, Textarea, Button, Select, FormHelperText} from "@chakra-ui/react"
 import {doc, getDoc, updateDoc} from "firebase/firestore"
 import {uploadBytesResumable, getDownloadURL, ref} from "firebase/storage"
 import {fs, st} from "../config/firebase.js"
+import categories from "../assets/categories.json";
 
-
+function FormPart(props) {
+    return (
+        <FormControl mb={4}>
+            <FormLabel fontSize={24} textAlign="center">{props.label}</FormLabel>
+            {props.children}
+            <FormHelperText textColor="slategray">{props.helper}</FormHelperText>
+        </FormControl>
+    )
+}
 
 function EditItemForm({item}) {
     const [title, setTitle] = useState(item.title),
@@ -51,28 +60,22 @@ function EditItemForm({item}) {
     }
     return (
         <form encType="multipart/form-data" onSubmit={submitHandler} className="bg-white p-4 rounded-md mt-2 font-bold">
-            <FormControl>
-                <FormLabel htmlFor="itemTitle" fontWeight="bold">Title</FormLabel>
-                <Input name="itemTitle" id="itemTitle" value={item.title} onChange={(e) => setTitle(e.target.value)} />
-            </FormControl>
-            <FormControl mt={3}>
-                <FormLabel htmlFor="itemDescription" fontWeight="bold">Description</FormLabel>
-                <Textarea name="itemDescription" id="itemDescription" onChange={(e) => setDescription(e.target.value)} value={item.description}></Textarea>
-            </FormControl>
-            <FormControl mt={3}>
-                <FormLabel fontSize={24} textAlign="center">Category: </FormLabel>
-                <Select onChange={(e) => setCategory(e.target.value)} value={item.category}>
-                    <option value="Art">Art</option>
-                    <option value="Tech">Tech</option>
-                    <option value="Household">Household</option>
-                    <option value="Car">Car</option>
-                    <option value="Books">Books</option>
+            <FormPart label="Title:" helper="Write title for your item">
+                <Input bgColor="white" opacity={0.5} color="black" placeholder="Title" onChange={(e) => setTitle(e.target.value)} defaultValue={item.title} />
+            </FormPart>
+            <FormPart label="Description:" helper="Write description for your item">
+                <Textarea bgColor="white" opacity={0.5} color="black" placeholder="Description" onChange={(e) => setDescription(e.target.value)} defaultValue={item.description}></Textarea>
+            </FormPart>
+            <FormPart label="Category:" helper="Choose category of your item">
+                <Select onChange={(e) => setCategory(e.target.value)} defaultValue={item.category}>
+                    {categories.map((c, i) => (
+                        <option value={c} key={i}>{c}</option>
+                    ))}
                 </Select>
-            </FormControl>
-            <FormControl mt={3}>
-                <FormLabel htmlFor="itemImage" fontWeight="bold">Image</FormLabel>
-                <Input type="file" accept="image/*" onChange={(e) => setImg(e.target.files[0])}/>
-            </FormControl>
+            </FormPart>
+            <FormPart label="Image: " helper="Upload image of your item">
+                <Input type="file" bgColor="white" opacity={0.5} color="black" placeholder="Image" onChange={(e) => setImg(e.target.files[0])}/>
+            </FormPart>
             <Button type="submit" mt={3}>Edit</Button>
         </form>
     )
